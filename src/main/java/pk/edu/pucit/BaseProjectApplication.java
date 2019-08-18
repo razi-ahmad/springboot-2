@@ -3,6 +3,10 @@ package pk.edu.pucit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Razi Ahmad
+ *
+ */
 @SpringBootApplication
 public class BaseProjectApplication {
 
