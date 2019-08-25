@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -36,6 +37,7 @@ import pk.edu.pucit.services.IUserService;
  */
 @Validated
 @RestController
+@RequestMapping(value = "v1/api/users")
 public class UserController extends AbstractController {
 
 	private IUserService service;
@@ -45,13 +47,13 @@ public class UserController extends AbstractController {
 		this.service = service;
 	}
 
-	@GetMapping(value = "v1/api/users")
+	@GetMapping
 	public List<User> getAllUsers() {
 
 		return service.getAllUsers();
 	}
 
-	@PostMapping(value = "v1/api/users")
+	@PostMapping
 	public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
 		try {
 			service.createUser(user);
@@ -63,7 +65,7 @@ public class UserController extends AbstractController {
 		}
 	}
 
-	@PutMapping(value = "v1/api/users/{id}")
+	@PutMapping(value = "/{id}")
 	public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
 		try {
 			return service.updateUserById(id, user);
@@ -72,7 +74,7 @@ public class UserController extends AbstractController {
 		}
 	}
 
-	@GetMapping(value = "v1/api/users/{id}")
+	@GetMapping(value = "/{id}")
 	public Optional<User> getUserById(@PathVariable("id") @Min(1)Long id) {
 		try {
 			return service.getUserById(id);
@@ -81,12 +83,12 @@ public class UserController extends AbstractController {
 		}
 	}
 
-	@DeleteMapping(value = "v1/api/users/{id}")
+	@DeleteMapping(value = "/{id}")
 	public void deleteUserById(@PathVariable("id") Long id) {
 		service.deleteUserById(id);
 	}
 
-	@GetMapping(value = "v1/api/users/byusername/{username}")
+	@GetMapping(value = "/byusername/{username}")
 	public Optional<User> getUserByUsername(@PathVariable("username") String username)
 			throws UserNameNotFoundException {
 		return service.getUserByUsername(username);
