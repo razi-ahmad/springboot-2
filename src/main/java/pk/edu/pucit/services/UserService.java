@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import pk.edu.pucit.entities.User;
 import pk.edu.pucit.exceptions.UserExistsException;
+import pk.edu.pucit.exceptions.UserNameNotFoundException;
 import pk.edu.pucit.exceptions.UserNotFoundException;
 import pk.edu.pucit.repositories.UserRepository;
 
@@ -39,9 +40,9 @@ public class UserService extends AbstractService implements IUserService {
 		return repository.findAll();
 	}
 
-	public User createUser(User user) throws UserExistsException{
+	public User createUser(User user) throws UserExistsException {
 		Optional<User> existingEntity = repository.findByUsername(user.getUsername());
-		if(existingEntity.isPresent()) {
+		if (existingEntity.isPresent()) {
 			throw new UserExistsException("User already exists in User Repository");
 		}
 		return repository.save(user);
@@ -71,7 +72,11 @@ public class UserService extends AbstractService implements IUserService {
 		repository.deleteById(id);
 	}
 
-	public Optional<User> getUserByUsername(String username) {
-		return repository.findByUsername(username);
+	public Optional<User> getUserByUsername(String username) throws UserNameNotFoundException {
+		Optional<User> entity = repository.findByUsername(username);
+		if (!entity.isPresent()) {
+			throw new UserNameNotFoundException("Username: '"+username+"'not found in User repository");
+		}
+		return entity;
 	}
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import pk.edu.pucit.entities.User;
 import pk.edu.pucit.exceptions.UserExistsException;
+import pk.edu.pucit.exceptions.UserNameNotFoundException;
 import pk.edu.pucit.exceptions.UserNotFoundException;
 
 /**
@@ -26,6 +27,6 @@ public interface IUserService {
 
 	void deleteUserById(Long id);
 
-	Optional<User> getUserByUsername(String username);
+	Optional<User> getUserByUsername(String username) throws UserNameNotFoundException;
 
 }
