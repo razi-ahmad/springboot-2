@@ -60,7 +60,7 @@ public class UserService extends AbstractService implements IUserService {
 		if (!repository.existsById(id)) {
 			throw new UserNotFoundException("User Not found in user Repository, provide the correct user id");
 		}
-		user.setId(id);
+		user.setUserid(id);
 		return repository.save(user);
 	}
 

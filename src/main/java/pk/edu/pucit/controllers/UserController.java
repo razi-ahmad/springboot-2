@@ -49,7 +49,6 @@ public class UserController extends AbstractController {
 
 	@GetMapping
 	public List<User> getAllUsers() {
-
 		return service.getAllUsers();
 	}
 

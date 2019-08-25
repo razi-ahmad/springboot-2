@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -20,11 +22,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends ResourceSupport {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long orderid;
 
 	@Column(name = "ORDER_DESCRIPTION", length = 100, nullable = false)
 	private String orderDescription;
@@ -43,15 +45,15 @@ public class Order {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
-		return id;
+	public Long getOrderid() {
+		return orderid;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setOrderid(Long orderid) {
+		this.orderid = orderid;
 	}
 
 	/**
@@ -80,5 +82,10 @@ public class Order {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderid=" + orderid + ", orderDescription=" + orderDescription + "]";
 	}
 }
