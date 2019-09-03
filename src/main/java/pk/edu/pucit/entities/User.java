@@ -17,12 +17,18 @@ import javax.validation.constraints.Size;
 
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author Razi Ahmad
  *
  */
 @Entity
 @Table(name = "users")
+//@JsonIgnoreProperties({ "firstname", "lastname" })
+@JsonFilter(value = "userFilter")
 public class User extends ResourceSupport {
 
 	@Id
@@ -46,7 +52,8 @@ public class User extends ResourceSupport {
 	@Column(name = "ROLE", length = 50, nullable = false)
 	private String role;
 
-	@Column(name = "SSN", length = 50, nullable = false, unique = true)
+	//@JsonIgnore
+	@Column(name = "SSN", length = 50, nullable = true, unique = true)
 	private String ssn;
 
 	@OneToMany(mappedBy = "user")
